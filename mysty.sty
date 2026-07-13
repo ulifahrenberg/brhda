@@ -1,0 +1,516 @@
+% \usepackage[hidelinks]{hyperref}
+\usepackage{xspace,amsmath,amsfonts,bm,bbm,ifthen,mathtools}
+\usepackage{amssymb}
+\usepackage[heavycircles]{stmaryrd}
+\usepackage[inline, shortlabels]{enumitem}
+%\usepackage{bbold}
+%\usepackage[OT4]{fontenc}
+\usepackage[sort, noadjust]{cite}
+\usepackage[noend]{algpseudocode}
+\usepackage{thmtools}
+\usepackage{multicol}
+% \usepackage{subfig}
+\usepackage{subcaption}
+% \captionsetup{subrefformat=parens}
+% \usepackage{rotating}
+%\usepackage{paralist}
+% \setlength{\pltopsep}{.1ex}
+\usepackage{url}
+% \usepackage{wasysym}
+% \usepackage{longtable}
+% \usepackage{xcolor}
+% \usepackage{pb-diagram}
+\usepackage{mathrsfs}
+\usepackage{leftidx}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows, automata, shapes, calc, fadings}
+% decorations.pathmorphing
+% \usepackage{tikz-cd}
+\tikzset{->, auto, >=stealth', font=\small}
+\tikzset{state/.style={shape=circle, draw, fill=white, initial text=,
+    inner sep=.5mm, minimum size=1.5mm}}
+\tikzset{accepting/.style=accepting by arrow}
+\tikzset{state with output/.style={shape=rectangle split, rectangle
+    split parts=2, draw, fill=white,
+    initial text=, inner sep=1mm}}
+
+\usepackage[matrix, arrow, cmtip, curve]{xy}
+\SelectTips{cm}{}\SilentMatrices\CompileMatrices
+
+% \usepackage[scaled=.89]{helvet}
+% \def\Hv@scale{.85}
+
+% float placement
+\renewcommand*\topfraction{.9}
+\renewcommand*\textfraction{.05}
+\setcounter{topnumber}1
+
+%\def\longrightarrowtriangle{\relbar\joinrel\rightarrowtriangle}
+
+% standard amsmath cases are sometimes ugly because the left column is
+% not centered.  Now you can say \begin{cases}[c] to fix this.
+\renewenvironment{cases}[1][l]{%
+  \matrix@check\cases\env@cases#1
+}{%
+  \endarray\right.%
+}
+\def\env@cases#1{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrace
+  \def\arraystretch{1.2}%
+  \array{@{}#1@{\quad}l@{}}%
+}
+
+% \to and \leadsto with stuff on top
+\newcommand*\tto[1]{\ensuremath{\xrightarrow{#1}}}
+\newcommand*\tfrom[1]{\ensuremath{\xleftarrow{#1}}}
+\newcommand*\leadstto[1]{\ensuremath{\underset{#1}{\rightsquigarrow}}}
+
+% sets of numbers
+\newcommand*\Int{\mathbbm{Z}}
+\newcommand*\Nat{\mathbbm{N}}
+\newcommand*\Rat{\mathbbm{Q}}
+\newcommand*\Natp{\Nat_+}
+\newcommand*\Real{\mathbbm{R}}
+\newcommand*\Realnn{\Real_{ \ge 0}}
+\newcommand*\Realbot{\Realnn^\bot}
+
+% Categories
+\newcommand*\cat[1]{\text{\textup{\textsf{#1}}}}
+\newcommand*\Set{\cat{Set}} % sets
+\newcommand*\Inj{\cat{Inj}} % ... and injective functions
+\newcommand*\Rel{\cat{Rel}}
+\newcommand*\Cat{\cat{Cat}} % cats
+\newcommand*\fSet{\cat{fSet}} % finite sets
+\newcommand*\Pos{\cat{Pos}} % posets
+% \newcommand*\tPos{\cat{tPos}} % total posets
+\newcommand*\iPos{\cat{iPos}} % ... with interfaces
+\newcommand*\Poms{\cat{Poms}} % pomsets
+\newcommand*\tPoms{\cat{tPoms}} % total pomsets
+\newcommand*\iPoms{\cat{iPoms}} % ... with interfaces
+\newcommand*\iiPoms{\cat{iiPoms}} % interval ipoms
+\newcommand*\dSpc{\cat{dSpc}} % d-spaces
+\newcommand*\HDA{\cat{HDA}}
+\newcommand*\Track[1]{\cat{Track}(#1)} % tracks in #1
+\newcommand*\Trace[1]{\cat{Trace}\georel{#1}} % traces in #1
+\newcommand*\CKA{\cat{CKA}}
+\newcommand*\Loset{\cat{Loset}}
+
+\newcommand*\maxSubsume{\text{\textup{\textsf{M}}}} % maximal in terms of subsumption
+\newcommand*\skeletal{\mathscr{S}} % skeletal languages
+\newcommand*\complementLike{\mathscr{C}} % complement like languages
+
+% \newcommand*\dotDelta{\ensuremath{\mathaccent\cdot\Delta}}
+\newcommand*\dotDelta{\ensuremath{\text{$\Delta$\llap{\raisebox{-.5pt}{$\cdot\,$}}}}}
+\newcommand*\tPos{\dotDelta} % total posets
+
+\newcommand*\dotsquare{\ensuremath{\text{$\square$\llap{\raisebox{.2ex}{$\cdot$\hspace*{.55ex}}}}}}
+
+%interval representation
+
+\newcommand*\irep{\rho_I}
+
+% \cup with plus on top (disjoint union?)
+\newcommand*\cupplus{\overset{\scriptscriptstyle+}{\cup}}
+
+\newcommand*\id{\textup{\textsf{id}}}
+\newcommand*\St{\textup{\textsf{St}}}
+\newcommand*\Te{\textup{\textsf{Te}}}
+\newcommand*\Id{\textup{\textsf{Id}}}
+
+% bigger \mid for set abstraction
+\newcommand*\bigmid{\mathrel{\big|}}
+
+% minus with dot on top
+\newcommand*\dotminus{\buildrel\textstyle.\over{%
+    \hbox{\vrule height3pt depth0pt width0pt}{\smash-}}}
+
+% better epsilon and phi
+\let\oldepsilon\epsilon
+\renewcommand*\epsilon{\varepsilon}
+\renewcommand*\phi{\varphi}
+
+% common abbreviations
+\newcommand*\ie{\textit{i.e.},\xspace}
+\newcommand*\etal{\textit{et al.}\xspace}
+\newcommand*\cf{\textit{cf.}\xspace}
+\newcommand*\eg{\textit{e.g.},\xspace}
+%\newcommand*\vv{\textit{vice versa}\xspace}
+\newcommand*\etc{\textit{etc}}
+%\newcommand*\defequal{\stackrel{\triangle}{=}}
+
+% logical stuff
+\newcommand*\liff{\Leftrightarrow}
+\newcommand*\limpl{\Rightarrow}
+\newcommand*\ltrue{\textup{\textbf{t\!t}}}
+\newcommand*\lfalse{\textup{\textbf{ff}}}
+
+% for running examples
+\newcounter{ex@mples@ve}
+\newenvironment{runningexstart}{%
+  \newcounter{runningex@}
+  \setcounter{runningex@}{\value{example}}
+  \begin{example}}{%
+  \end{example}}
+\newenvironment{runningex}{%
+  \setcounter{ex@mples@ve}{\value{example}}
+  \setcounter{example}{\value{runningex@}}
+  \begin{example}[contd]}{%
+  \end{example}
+  \setcounter{example}{\value{ex@mples@ve}}}
+
+% zero and one in a semiring
+\newcommand*\snul{\mathbb{0}}
+\newcommand*\sone{\mathbb{1}}
+
+% restriction of a function
+\newcommand*\rest[1]{{}_{\upharpoonleft #1}}
+% \newcommand*\rest[1]{{}_{| #1}}
+
+% state and value of a global state
+%\newcommand{\state}{\textup{\textsf{state}}}
+\newcommand{\val}{\textup{\textsf{val}}}
+
+% set of fixed points of a function
+\newcommand{\fix}{\textup{\textsf{fix}}}
+
+% first and last extended state in a run
+\newcommand{\first}{\textup{\textsf{first}}}
+\newcommand{\last}{\textup{\textsf{last}}}
+
+% left-continuous
+\newcommand*\Ec{\E_\textup{\textsf{c}}}
+% integer update
+\newcommand*\Eint{\E_\textup{\textsf{int}}}
+% flat
+\newcommand*\Eflat{\bar\E}
+% piecewise linear
+\newcommand*\Epw{\E_{\textup{\textsf{pw}}}}
+\newcommand*\Epwi{\E_{\textup{\textsf{pwi}}}}
+\newcommand*\Eflatpw{\Eflat_{\textup{\textsf{pw}}}}
+\newcommand*\Eflatpwi{\Eflat_{\textup{\textsf{pwi}}}}
+
+% partial function
+\newcommand*\parto{\rightharpoonup}
+
+% B\"uchi and reachability problems
+\newcommand*\pbuchi{\textup{\textsf{B\"uchi}}}
+\newcommand*\preach{\textup{\textsf{Reach}}}
+
+% transpose (of vector or matrix)
+%\newcommand*\transpose[1]{{\vphantom{#1}}^{t}\!{#1}}
+\newcommand*\transpose[1]{{\vphantom{#1}}_{\textup{\textsf{t}}}{#1}}
+
+% "double bot and top" symbols
+% (zero element in energy function semiring)
+\newcommand*\bbot{%
+  \hbox{%
+    \hbox to -.475pt{%
+      \raisebox{1.5pt}[0pt][0pt]{%
+        \rule{6.4pt}{.4pt}%
+      }%
+      \hss}%
+    $\bot$%
+  }}
+\newcommand*\ttop{%
+  \hbox{%
+    \hbox to -.475pt{%
+      \raisebox{5pt}[0pt][0pt]{%
+        \rule{6.4pt}{.4pt}%
+      }%
+      \hss}%
+    $\top$%
+  }}
+
+% has to be defined for elsarticle
+% \newdefinition{definition}{Definition}
+% \newdefinition{example}{Example}
+% \newdefinition{problem}{Problem}
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{conjecture}[theorem]{Conjecture}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{proposition}[lemma]{Proposition}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newproof{proof}{Proof}
+
+\hyphenation{semi-ring param-e-trize re-param-e-trize
+  param-e-triza-tion re-param-e-triza-tion pre-sim-pli-cial}
+
+% \usepackage{color}	
+% \usepackage{colortbl}
+% \definecolor{light-gray}{gray}{0.65}
+% \definecolor{middle-gray}{gray}{0.30}
+
+% % Algebraic Operators
+% \newcommand*\domain[1]{\mathit{d}(#1)} % domain
+% \newcommand*\codomain[1]{\mathit{cd}(#1)} % codomain
+\newcommand*\domain[1]{\textit{dom}(#1)} % domain
+\newcommand*\codomain[1]{\textit{cod}(#1)} % OLD codomain
+\newcommand*\range[1]{\textit{ran}(#1)} % range is the same as codomain
+\newcommand*\antidomain[1]{\textit{ant}(#1)} % range is the same as codomain
+\newcommand*\modaldiamond[2]{%
+  \ifthenelse{\equal{#1}{}}{%
+    \ensuremath{\hspace{0.2ex}\mathchoice{\raisebox{.15ex}{$\scriptstyle \mathopen|$}}{\raisebox{.15ex}{$\scriptstyle \mathopen|$}}{\raisebox{.1ex}{$\scriptscriptstyle \mathopen|$}}{\raisebox{.1ex}{$\scriptscriptstyle \mathopen|$}}\mathclose\rangle\hspace{0.2ex}#2}}{%
+    \ensuremath{\mathopen|#1\mathclose\rangle#2}}}
+
+\newcommand*\Vc{\V_\textup{\textsf{c}}} % continuous
+\newcommand*\B{\mathbbm B}
+\newcommand*\ipomconcat{*} % i-pomset glueing composition
+\newcommand*\comp{\ipomconcat}
+\newcommand*\pomser{;} % pomset serial product
+\newcommand*\pompar{\otimes} % pomset parallel product
+\newcommand*\ipompar{\otimes} % i-pomset parallel product
+
+\newcommand*\up{\mathord{\uparrow}}
+\newcommand*\down{\mathord{\downarrow}}
+\newcommand*\biggdown{\mathord{\bigg\downarrow}}
+\newcommand*\defeq{\overset{\textup{def}}{=}}
+
+\newcommand*\bang{\mathord{!}}
+\newcommand*\bbang{\mathord{!\hspace{-.2ex}!}}
+%\newcommand*\ser[1]{\mathop{\raisebox{-.5ex}{$\overset{#1}{\smile}$}}}
+% \newcommand*\ser[1]{%
+%   \mathop{%
+%     \raisebox{.4ex}{%
+%       $\underset{%
+%         \raisebox{.7ex}[0pt][0pt]{$%
+%           \scriptstyle #1$}}{%
+%         \frown}$}}}
+\newcommand*\face{\triangleleft}
+\newcommand*\ecaf{\triangleright}
+% \newcommand*\eface{\mathrel{\overset{e}\face}}
+% \newcommand*\eecaf{\mathrel{\overset{e}\ecaf}}
+
+\let\po\vec
+%\newcommand*\po[1]{\overset{\scriptscriptstyle\rightarrow}{#1}}
+%\newcommand*\po[1]{\overrightarrow{#1}}
+\newcommand*\pocap{\mathop{\smash[t]{\po\cap}}}
+\newcommand*\mcal[1]{\mathcal{#1}}
+\newcommand*\maxp[1]{\max #1}
+
+\makeatother
+\newcommand\pomsetwop[4]{% @R; @C; @M; content
+  \vcenter{%
+    % \renewcommand{\labelstyle}{\scriptstyle}%  % DOES NOT WORK
+    \xymatrix@1@R=#1@C=#2@M=#3{#4}}%
+}
+\newcommand\pomset[2][1.3]{%
+  \left[%
+    \pomsetwop{0ex}{#1em}{2pt}{#2}%
+  \right]%
+}
+\newcommand\ipomset[2][1.5]{%
+  \hspace*{.6em}%
+  \left[%
+    \hspace*{-#1em}%
+    \pomsetwop{2.7ex}{#1em}{1pt}{#2}%
+    \hspace*{-#1em}%
+  \right]%
+  \hspace*{.6em}%
+}
+\makeatletter
+
+% % about Pomsets
+\newcommand*\Pomset{\textup{\textsf{Pomset}}}
+\newcommand*\AllPomsetLanguage{\mcal P}
+
+\newcommand*\pCub{\textup{\textsf{pCub}}}
+\newcommand*\clop[1]{#1\mathord{\downarrow}}
+\newcommand*\varclop[1]{\left. #1\right\downarrow}
+\newcommand*\T{\mcal{T}}
+\newcommand*\I{\mcal{I}}
+\newcommand*\GT{\mcal{GT}}
+\newcommand*\HReg{\textup{\textsf{HReg}}}
+\newcommand*\HRat{\textup{\textsf{HRat}}}
+\newcommand*\Star[2]{#1\ser{#2}\!{}^*}
+\newcommand*\llbrace{\{\!\!\{}
+\newcommand*\rrbrace{\}\!\!\}}
+\newcommand*\georel[1]{\mathopen| #1\mathclose|}
+
+\newcommand*\from{\leftarrow}
+\newcommand*\climg[1]{[#1]} % closed and interior image
+\newcommand*\intimg[1]{\mathopen] #1\mathclose[}
+\newcommand*\carr{\textup{\textsf{carr}}}
+% \newcommand*\carrs[1]{\textup{\textsf{carrs}}\, #1}
+\newcommand*\toto{\rightrightarrows}
+\newcommand*\one{\mathbb1}
+\newcommand*\catip{\mathfrak{iP}}
+\newcommand*\horiz{\textup{\textsf{H}}}
+\newcommand*\verti{\textup{\textsf{V}}}
+
+\newcommand*\op{\textup{\textsf{op}}} % opposite
+\newcommand*\rcomp{\triangleleft} % reverse composition
+
+\newcommand*\edges[1]{\partial_{-1}(#1)}
+
+% some posets
+\newcommand*\N{{\textsf{N}}}
+\newcommand*\NN{{\textsf{N\hspace{-.6ex}N}}}
+\newcommand*\TC{{\textsf{3C}}}
+\newcommand*\LN{{\textsf{LN}}}
+% \newcommand*\NPLUS{\ensuremath{\N^+}}
+\newcommand*\NPLUS{\textsf{M}}
+% \newcommand*\NMINUS{\ensuremath{\N^-}}
+\newcommand*\NMINUS{\textsf{W}}
+\newcommand*\twotwo{\textsf{2+2}}
+\newcommand*\Knm{\ensuremath{K_n^m}}
+\newcommand*\SP{\mcal{ SP}}
+
+%% generalized identities / starters / terminators
+\newcommand*\idpos[3]{{}^{#1}\id^{#2}_{#3}}
+
+\newcommand*\para{\mathrel{\|}} % independence
+
+% Points for ipomsets
+\newcommand*\inpt{\tiny {\ensuremath \RIGHTCIRCLE}}
+\newcommand*\intpt{\tiny {\ensuremath \Circle}}
+\newcommand*\outpt{\tiny {\ensuremath \LEFTCIRCLE}}
+
+\newcommand*\ev{\textup{\textsf{ev}}}
+\newcommand*\lambdae{\lambda_\ev}
+% \newcommand*\eveq{\overset{\ev}{\sim}}
+% \newcommand*\evord{\overset{\ev}{<}}
+\newcommand*\eveq{\sim_\ev}
+\newcommand*\steq{\sim_{\textup{\textsf{ST}}}}
+% \newcommand*\tconc{\Yright}
+\newcommand*\oface[1]{\face_{#1}^\perp}
+\newcommand*\subsu{\sqsubseteq} % po(m)set subsumption
+\newcommand*\usbus{\sqsupseteq} % reverse po(m)set subsumption
+% \newcommand*\tsubsu{\preceq} % track subsumption
+\newcommand*\psubsu{\subsu} % path subsumption
+\newcommand*\cp{\textup{\textsf{cp}}} % center point
+% \newcommand*\incomp{\asymp}% incomparability relation
+\newcommand*\incomp{\mathrel{\|}}
+
+%% https://tex.stackexchange.com/questions/430538/how-to-write-a-dotted-arrow
+\newbox\dotrightarrow@box
+\setbox\dotrightarrow@box\hbox
+{%
+  \begin{tikzpicture}
+    \draw[dotted,->,>=stealth] (0,0) -- (1.5em,0);
+  \end{tikzpicture}%
+}
+\newcommand*\dotrightarrow
+{\relax\ifmmode\expandafter\dotrightarrow@m\else\expandafter\dotrightarrow@t\fi}
+\newcommand*\dotrightarrow@t[1][1.5em]
+{\resizebox{#1}{!}{\raisebox{.5ex}{\usebox\dotrightarrow@box}}}
+\newcommand*\dotrightarrow@m[1][]
+{%
+  \if\relax\detokenize{#1}\relax
+  \mathchoice% values are trial and error based\ldots
+  {\dotrightarrow@t}
+  {\dotrightarrow@t}
+  {\dotrightarrow@t[1.1em]}
+  {\dotrightarrow@t[0.9em]}%
+  \else
+  \dotrightarrow@t[#1]%
+  \fi
+}
+% interface order
+% \newcommand*\intord{\dotrightarrow} 
+% \newcommand*\intord{\dashrightarrow}
+
+% event order
+\newcommand*\evord{\dashrightarrow}
+
+% \newcommand*\exec{*} % executing state
+\newcommand*\exec{%
+  \raisebox{1pt}{%
+    \begin{tikzpicture}[x=.8ex,y=1ex,-]
+      \draw (0,0) -- (1,0) -- (1,1) -- (2,1);
+    \end{tikzpicture}}}
+\newcommand*\pobj[1]{\square^{#1}}
+% \newcommand*\pobj[1]{\square(#1)}
+\newcommand*\oil{\mathopen]} % open interval left
+\newcommand*\bigoil{\bigl]}
+\newcommand*\oir{\mathclose[} % open interval right
+\newcommand*\bigoir{\bigr[}
+
+% https://arxiv.org/abs/1506.08870
+% https://tex.stackexchange.com/questions/171611/how-to-write-a-single-hiragana-character-in-latex
+% \DeclareFontFamily{U}{min}{}
+% \DeclareFontShape{U}{min}{m}{n}{<-> udmj30}{}
+% \newcommand\yoneda{\!\text{\usefont{U}{min}{m}{n}\symbol{'210}}\!}
+% \newcommand\arrintord{\!\text{\usefont{U}{min}{m}{n}\symbol{'142}}\!} % don't take it seriously
+\newcommand*\yoneda{\mathbf{y}}
+\newcommand*\ineda{\mathbf{i}}
+\newcommand*\jneda{\mathbf{j}}
+
+% \newcommand*\pcSet{\square\cat{Set}}
+\newcommand*\pcSet{\Set^{\square^\op}}
+\newcommand*\dTop{\cat{dTop}}
+\DeclareMathOperator\im{im}
+\newcommand*\torus{\mathbf{T}}
+\newcommand*\X{\mathcal{X}}
+\newcommand*\Y{\mathcal{Y}}
+
+\renewcommand\thefootnote{\@arabic\c@footnote}
+
+\newcommand\red[1]{\textcolor{red}{#1}}
+% \newcommand*\precchu{<_{\textup{Chu}}} % order in Chu
+\newcommand*\precchu{<_{\textup{C}}}
+
+% \renewcommand\qedsymbol{\QEDblogo}
+\newcommand*\starter[2]{\leftidx{_{#2\!}}{{\uparrow}#1}{}}
+% \newcommand*\starter[2]{{}_{#2\!}{\uparrow}{#1}}
+\newcommand*\terminator[2]{{#1}{\downarrow}_{#2}}
+\newcommand{\sq}{\square}
+\newcommand*\fullsq{{\bm{\sq}}}
+\newcommand{\Cell}{\mathsf{Cell}}
+\newcommand*\arrO[1]{\mathrel{\nearrow^{#1}}}
+\newcommand*\arrI[1]{\mathrel{\searrow_{#1}}}
+% \newcommand*\qedhere{}
+\newcommand{\wid}{\textup{\textsf{wid}}}
+\newcommand{\size}[1]{\textup{\textsf{size}}(#1)}
+\newcommand*\UA{\mathbf{A}}
+\newcommand*\Langs{\mathscr{L}} % pomset languages
+\newcommand*\Wangs{\mathscr{W}} % word languages
+\newcommand*\Regs{\mathscr{R}} % regular languages
+\newcommand*\Lang[1]{\mathsf{L}_{#1}}
+\newcommand*\HLang[1]{{\mathsf{L}^{\!\!\mathsf{h}}\!}_{#1}}
+\newcommand*\src{\textup{\textsf{src}}}
+\newcommand*\tgt{\textup{\textsf{tgt}}}
+% \newcommand*\Path[1]{\textup{\textsf{Paths}}(#1)}
+\newcommand*\Path[1]{\mathsf{P}_{#1}}
+\newcommand*\loset[1]{\left[\begin{smallmatrix}#1\end{smallmatrix}\right]}
+\newcommand*\bigloset[1]{\left[\begin{matrix}#1\end{matrix}\right]}
+\newcommand*\Lsim{\sim_L}
+\newcommand*\Lapprox{\approx_L}
+\newcommand*\ilo[3]{\leftidx{_{#1}}{#2}{_{#3}}}
+% \newcommand*\ilo[3]{{}_{#1}{#2}_{#3}}
+% \newcommand*\ilo[3]{({#1_{#2}}{\subseteq}{#2}{\supseteq}{#3_{#2}})}
+% \newcommand*\ilo[3]{(#1\subseteq #2\supseteq #3)}
+% \newcommand*\ilo[3]{(#1, #2, #3)}
+% \newcommand*\ilo[3]{(#1_{#2}, #2, #3_{#2})}
+\newcommand*\subid[3]{\ilo{#1}{#2}{#3}}
+\newcommand*\MN[1]{\mathsf{MN}(#1)}
+\newcommand*\eqcl[1]{\langle{#1}\rangle}
+\newcommand*\fin{\mathsf{fin}}
+\newcommand*\sfin{\mathsf{sfin}}
+\newcommand*\rfin{\mathsf{rfin}}
+\newcommand*\ess{\mathsf{ess}}
+\newcommand*\suff{\mathsf{suff}}
+\newcommand*\pref{\mathsf{pref}}
+\newcommand*\ibullet{\vcenter{\hbox{\tiny $\bullet$}}}
+\newcommand*\pibullet{\phantom{\ibullet}}
+\newcommand*\glue{\mathbin{\triangleright}}
+\newcommand*\branch{\mathbin{\lhd}}
+\renewcommand*\merge{\mathbin{\rhd}}  %% Already defined in stmary
+% \newcommand*\bbranch{\tilde\branch}
+% \newcommand*\mmerge{\tilde\merge}
+
+\newenvironment{varproof}[1][]{%
+  \vspace{-3ex}%
+  \paragraph{Proof #1.}}{}
+% \newcommand*\bcomp[2]{% % width-bounded complement
+%   \ifthenelse{\equal{#2}{}}{%
+%     \overline{\phantom{L}}{\vphantom{L}}^{#1}}{%
+%     \overline{#2}{\vphantom{#2}}^{#1}}}
+\newcommand*\bcomp[2]{% % width-bounded complement
+  \overline{#2}{\vphantom{#2}}^{#1}}
+\newcommand*\Coh{\textup{\textsf{Coh}}}
+\newcommand*\Cohs{\Coh_{/{\sim}}}
+\newcommand*\ST{\textup{\textsf{ST}}}
+\newcommand*\inv{\textup{\textsf{inv}}}
+\newcommand*\exit{\textup{\textsf{exit}}}

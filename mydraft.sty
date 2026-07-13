@@ -1,0 +1,55 @@
+%%% for draft only
+\RequirePackage{mparhack}
+
+\addtolength{\oddsidemargin}{-50pt}
+\addtolength{\evensidemargin}{50pt}
+\addtolength{\marginparwidth}{60pt}
+
+\usepackage[colorinlistoftodos, textwidth=140pt]{todonotes}
+\definecolor{ufcolor}{rgb}{1,0.5,0.5}
+\definecolor{aacolor}{cmyk}{1,0,0,0}
+\definecolor{hbcolor}{cmyk}{0,1,0,0}
+\definecolor{kzcolor}{cmyk}{0,0,1,0}
+\definecolor{gscolor}{cmyk}{1,0,0,0}
+\definecolor{cjcolor}{cmyk}{0,1,0,0}
+\definecolor{jdcolor}{cmyk}{1,1,0,0}
+\definecolor{alertcolor}{rgb}{1,0,0}
+
+\newcommand\notesb[4]{\todo[linecolor=red,backgroundcolor=#2!20,size=\small,caption={}]{#1: #4}{\color{blue}#3}}
+\newcommand{\ufsb}[2]{\notesb{UF}{ufcolor}{#1}{#2}}
+\newcommand{\aasb}[2]{\notesb{AA}{aacolor}{#1}{#2}}
+\newcommand{\hbsb}[2]{\notesb{HB}{hbcolor}{#1}{#2}}
+\newcommand{\kzsb}[2]{\notesb{KZ}{kzcolor}{#1}{#2}}
+\newcommand{\gssb}[2]{\notesb{GS}{gscolor}{#1}{#2}}
+\newcommand{\cjsb}[2]{\notesb{CJ}{cjcolor}{#1}{#2}}
+\newcommand{\jdsb}[2]{\notesb{CJ}{jdcolor}{#1}{#2}}
+\newcommand{\rvsb}[2]{\notesb{Rev}{alertcolor}{#1}{#2}}
+
+
+\newcommand{\achtung}[2]{\notesb{Error}{alertcolor}{\color{red}#1}{\color{red}#2}}
+\newcommand{\new}[1]{{\color{blue} #1}}
+
+
+\newcommand{\notein}[3]{\todo[inline,linecolor=orange!80!black,backgroundcolor=#2!20,caption={}]{#1: #3}%yellow!50
+}
+\newcommand{\ufin}[1]{\notein{{\bf UF}}{ufcolor}{#1}}
+\newcommand{\aain}[1]{\notein{{\bf AA}}{aacolor}{#1}}
+\newcommand{\hbin}[1]{\notein{{\bf HB}}{hbcolor}{#1}}
+\newcommand{\kzin}[1]{\notein{{\bf KZ}}{kzcolor}{#1}}
+\newcommand{\gsin}[1]{\notein{{\bf GS}}{gscolor}{#1}}
+\newcommand{\cjin}[1]{\notein{{\bf CJ}}{cjcolor}{#1}}
+\newcommand{\jdin}[1]{\notein{{\bf JD}}{jdcolor}{#1}}
+\newcommand{\rvin}[1]{\notein{{\bf Reviewers}}{alertcolor}{#1}}
+
+%% bullshit boundary :-)
+\newcommand{\bbb}{%
+  \par\bigskip\bigskip%
+  % \par\newpage
+  \noindent\makebox[0pt][r]{\textcolor{red}{\textbf{!!!}}}%
+  \dotfill%
+  Below is old and/or wrong stuff%
+  \dotfill%
+  \makebox[0pt][l]{\textcolor{red}{\textbf{!!!}}}%
+  \par\medskip
+  % \newpage
+}

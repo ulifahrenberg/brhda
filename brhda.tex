@@ -1,0 +1,226 @@
+\documentclass[a4paper,english]{lipics-v2021}
+\usepackage{mysty}
+\usepackage{mydraft}
+
+\title{Branching Higher-Dimensional Automata}
+
+\author{Uli Fahrenberg}{LMF, Paris-Saclay University, Gif-sur-Yvette, France}{}{}{}
+\author{Georg Struth}{Sheffield}{}{}{}
+\author{Krzysztof Ziemiański}{University of Warsaw, Poland}{}{}{}
+
+% \keywords{%
+%   higher-dimensional automaton
+% }
+
+% \begin{CCSXML}
+%   <ccs2012>
+%   <concept>
+%   <concept_id>10003752.10003766.10003773</concept_id>
+%   <concept_desc>Theory of computation~Automata extensions</concept_desc>
+%   <concept_significance>500</concept_significance>
+%   </concept>
+%   </ccs2012>
+% \end{CCSXML}
+
+% \ccsdesc[500]{Theory of computation~Automata extensions}
+
+\Copyright{U.~Fahrenberg etc.}
+\ArticleNo{\mbox{}}
+\authorrunning{Authors Running (Or Not)}
+% \relatedversion{}
+% \relatedversiondetails{Full Version}{https://arxiv.org/abs/UPDATE}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\section{ST-Pomsets}
+
+A \emph{pomset} (with event order) $(P, {<}, {\evord}, \lambda)$ on an alphabet $\Sigma$
+consists of a finite set $P$, a strict partial order $<$ on $P$,
+an irreflexive and acyclic relation $\evord$ on $P$, and a labeling function $\lambda: P\to \Sigma$,
+such that ${<}\cup {\evord}$ is a total relation.
+
+A \emph{pomset with interfaces} (\emph{ipomset}) $(P, {<}, {\evord}, \lambda, S, T)$
+is a pomset together with subsets of \emph{interfaces}
+$S\subseteq P_{\min}$ and $T\subseteq P_{\max}$ of $<$-minimal, resp.\ $<$-maximal elements.
+
+% We will often use indices $<_P$, $S_P$, etc.\ for clarity.
+
+An ipomset $(P, {<}, {\evord}, \lambda, S, T)$ is \emph{discrete} if ${<}=\emptyset$.
+It is a \emph{starter} if, additionally, $T=P$,
+and a \emph{terminator} if $S=P$.
+We write discrete ipomsets as vectors with dots for interfaces and the event order going downwards; for example,
+$\loset{\ibullet a\pibullet \\ \pibullet b\pibullet \\ \ibullet a\ibullet}$ denotes
+$(\{e_1, e_2, e_3\}, \emptyset, (e_1\evord e_2\evord e_3), (e_1\mapsto a, e_2\mapsto b, e_3\mapsto a), \{e_1, e_3\}, \{e_3\})$.
+
+Let $\Sigma$ be a fixed alphabet and denote by $\Sigma^\ST$ the (infinite) set of starters and terminators labeled by $\Sigma$.
+
+For elements $x$, $y$ of a pomset $P$ we write $x\ll y$ if $x<y$ and there is no $z$ such that $x<z<y$.
+
+\ufin{Blabla isomorphism blabla quotient blabla equality is isomorphism}
+
+\begin{definition}
+  An \emph{ST-pomset} is a pomset $(P, {<}, {\evord}, \lambda)$ on $\Sigma^\ST$ such that for all $x\in P$,
+  $S_{\lambda(x)}=\bigotimes_{y\ll x} T_{\lambda(y)}$ and
+  $T_{\lambda(x)}=\bigotimes_{x\ll y} S_{\lambda(y)}$.
+\end{definition}
+
+\ufin{The above requires (event-ordered) parallel product of ipomsets
+  and also ordered parallel product of an ordered set of ipomsets.  Both are easy.}
+
+This generalizes the notion of \emph{coherent ST-words}
+from~\cite{conf/ramics/AmraneBCFZ24, DBLP:journals/corr/abs-2505-10461}
+to partial orders.
+
+\section{ST-sp-pomsets}
+
+\ufin{Blabla serial product $*$ blabla gluing product $\glue$}
+
+A pomset $P$ on an alphabet $\Sigma$ is \emph{series-parallel} (\emph{sp}) if
+\begin{itemize}
+\item $P=\emptyset$ or $P=a$ for $a\in \Sigma$, or
+\item $P=Q\otimes R$ or $P=Q*R$ for sp-pomsets $Q$ and $R$.
+\end{itemize}
+Every non-empty sp-pomset $P$ is uniquely represented by a term $t(P)$
+of series and parallel products of singleton pomsets.\ufsb{}{citation needed}
+
+We inductively define a translation from an ST-sp-pomset $P$ to a $\Sigma$-labeled ipomset $\flat(P)$
+(this generalizes the translation from coherent ST-words to ipomsets
+from~\cite{conf/ramics/AmraneBCFZ24, DBLP:journals/corr/abs-2505-10461}):
+\begin{itemize}
+\item $\flat(\emptyset)=\emptyset$; $\flat(U)=U$ for $U\in \Sigma^\ST$;
+\item $\flat(P\otimes Q)=P\otimes Q$; $\flat(P*Q)=P\glue Q$.
+\end{itemize}
+
+\ufin{Can this be extended to a translation from \emph{all} ST-pomsets to ipomsets?}
+
+\ufin{Blabla gluing-parallel}
+
+\begin{proposition}
+  For any ST-sp-pomset $P$, $\flat(P)$ is gluing-parallel.
+\end{proposition}
+
+\begin{proof}
+  \ufin{Clear; but should cite the new version of~\cite{arxiv:AikasFJZ22} shortly to appear.}
+\end{proof}
+
+Next we inductively define an inverse translation,
+from a $\Sigma$-labeled gp-ipomset $P$ to an ST-sp-pomset $\ST(P)$:
+\begin{itemize}
+\item $\ST(\emptyset)=\emptyset$; $\ST(a)=a$ for $a\in \Sigma$;
+\item $\ST(P\otimes Q)=\ST(P)\otimes \ST(Q)$;
+\item $\ST(P\glue Q)=\phi_1(\ST(P))*\phi_2(\ST(Q))$.
+\end{itemize}
+
+\ufin{Above, $\phi_1$ and $\phi_2$ are variants of the constructions from (the new version of)~\cite{arxiv:AikasFJZ22}
+  which turn interfaces into intervals.  To be written up.}
+
+\begin{proposition}
+  \qquad
+  For any ST-sp-pomset $P$, $\ST(\flat(P))=P$.
+  For any gp-pomset $P$, $\flat(\ST(P))=P$.
+\end{proposition}
+
+\begin{proof}
+  \ufin{Add proof (easy).}
+\end{proof}
+
+\section{Branching ST-automata}
+
+\ufin{Blabla $\sq S$ denotes set of conclists over set $S$.}
+
+\begin{definition}
+  A \emph{branching ST-automaton} $(Q, I, F, {\to}, {\branch}, {\merge}, \ev)$
+  consists of a finite set $Q$ of states with initial and accepting states $I, F\subseteq Q$,
+  sequential transitions ${\to}\subseteq Q\times \Sigma^\ST\times Q$,
+  branching and merging transitions ${\branch}\subseteq Q\times \sq Q$, ${\merge}\subseteq \sq Q\times Q$,
+  and a state labeling $\ev: Q\to \sq \Sigma$, such that
+  \begin{itemize}
+  \item for all $q\tto{U} r$, $\ev(q)=S_U$ and $\ev(r)=T_U$;
+  \item for all $q\branch [q_1\evord\dotsm\evord q_n]$ and $[q_1\evord\dotsm\evord q_n]\merge q$, $\ev(q)=\bigotimes_{i=1}^n \ev(q_i)$.
+  \end{itemize}
+\end{definition}
+
+This generalizes both the branching automata of~\cite{DBLP:journals/tcs/LodayaW00}
+and the ST-automata of~\cite{conf/ramics/AmraneBCFZ24, DBLP:journals/corr/abs-2505-10461}.
+
+\ufin{This begs for a generalization of ``automata on graph alphabets''~\cite{DBLP:journals/corr/abs-2602-10036}
+  to ``branching automata on monoidal graph alphabets''.}
+
+Languages of branching ST-automata are defined
+just as languages of branching automata in~\cite{DBLP:journals/tcs/LodayaW00}.\ufsb{}{needs more detail $\ddot\smile$}
+These are, thus, sets of ST-sp-pomsets or, equivalently, sets of gp-ipomsets.
+
+\section{Branching Higher-Dimensional Automata}
+
+\begin{definition}
+  A \emph{branching HDA} $(X, \bot, \top, {\branch}, {\merge})$
+  consists of a precubical set $X$,
+  subsets $\bot, \top\subseteq X$ of initial and accepting cells,
+  and branching and merging transitions ${\branch}\subseteq X\times \sq X$, ${\merge}\subseteq \sq X\times X$,
+  such that for all $x\branch [x_1\evord\dotsm\evord x_n]$ and $[x_1\evord\dotsm\evord x_n]\merge x$, $\ev(x)=\bigotimes_{i=1}^n \ev(x_i)$.
+  Further, for all $x\branch [x_1\evord\dotsm\evord x_n]$, $A\subseteq \ev(x)$, and $\nu\in \{0, 1\}$,
+  also $\delta_A^\nu(x)\branch \delta_A^\nu([x_1\evord\dotsm\evord x_n])$,
+  and similarly for mergings.
+\end{definition}
+
+\ufin{Above, $\delta_A^\nu([x_1\evord\dotsm\evord x_n])$ works by splitting $A$ across the $\ev(x_i)$.}
+
+\ufin{Actually, these subsumption closures of branchings could be added by modifying the base category:
+  turning $\sq$ into a ``branching $\sq$'' with coface maps and cobranchings/comergings.
+  Still, the notion of track object would change, so this goes beyond~\cite{DBLP:journals/apal/StruthZ26}.}
+
+\ufin{Above, we also allow nullary and unary branchings.
+  Nullary branchings are useless, and unary branchings are sequential teleportations.}
+
+The \emph{operational semantics} of a branching HDA $X=(X, \bot, \top, {\branch}, {\merge})$
+is given by the branching ST-automaton $\ST(X)=(X, \bot, \top, {\to}, {\branch}, {\merge}, \ev)$ with
+\begin{multline*}
+  {\to}=\{(\delta_A^0(x), (\ev(x)\setminus A, \ev(x), \ev(x)), x)\mid A\subseteq \ev(x)\} \\
+  \cup \{(x, (\ev(x), \ev(x), \ev(x)\setminus A), \delta_A^1(x))\mid A\subseteq \ev(x)\}.
+\end{multline*}
+This defines the language of $X$ as the language of $\ST(X)$.
+We also give a more direct definition;
+below $L_{\textup{nb}}(X)$ denotes the non-branching language of $X$, \ie~ignoring the branching structure.
+
+\begin{definition}
+  The \emph{language} of a branching HDA $X$ is $L(X)=\bigcup_{a\in \bot, b\in \top} L_a^b$,
+  where $\{L_a^b\mid a, b\in X\}$ are the least fixed point to the equations
+  \begin{equation*}
+    L_a^b = L_{\textup{nb}}(X)_a^b \cup L_a^b
+    \cup \bigcup_{n\ge 0} \bigcup_{\substack{x\branch [x_1\evord\dotsm\evord x_n] \\ [y_1\evord\dotsm\evord y_n]\merge y}}
+    L_a^x \glue \big( L_{x_1}^{y_1}\otimes\dotsm\otimes L_{x_n}^{y_n} \big) \glue L_y^b.
+  \end{equation*}
+\end{definition}
+
+\ufin{So here, $L_a^b$ is the language from $a$ to $b$.
+  Is an equivalent definition known for branching/pomset automata?}
+
+\ufin{There is another definition of the above, likely equivalent:
+  split branchings and mergings into pairs $({\branch}, {\merge})$ of the same cardinality,
+  and then do the $\bigcup$ only over those pairs.
+  Splitting into pairs cannot a priori always be done,
+  but any branching HDA can (probably) be turned into one where the pairing is possible.}
+
+\section{Stuff}
+
+\ufin{Also introduce ST-pomset automata and pomset HDAs? following~\cite{DBLP:journals/jlp/KappeBLSZ19}.
+  See~\cite{DBLP:conf/fsttcs/Bedon21} for their relation to branching automata.}
+
+\ufin{Conjecture: branching HDAs,
+  with the syntactic branching restriction from~\cite{DBLP:journals/jlp/KappeBLSZ19}
+  to avoid context-free things,
+  are equivalent to usual HDAs with gp-pomset-track objects.}
+
+
+% \paragraph*{Acknowledgements}
+
+
+
+\bibliographystyle{plain}
+\bibliography{bibexport}
+
+\end{document}

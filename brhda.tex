@@ -63,12 +63,12 @@ For elements $x$, $y$ of a pomset $P$ we write $x\ll y$ if $x<y$ and there is no
 \ufin{Blabla isomorphism blabla quotient blabla equality is isomorphism}
 
 \begin{definition}
-  An \emph{ST-pomset} is a pomset $(P, {<}, {\evord}, \lambda)$ on $\Sigma^\ST$ such that for all $x\in P$,
-  $S_{\lambda(x)}=\bigotimes_{y\ll x} T_{\lambda(y)}$ and
+  An \emph{ST-pomset} is a pomset $(P, {<}, {\evord}, \lambda)$ on $\Sigma^\ST$ such that for all $x\in P\setminus P_{\min}$,
+  $S_{\lambda(x)}=\bigotimes_{y\ll x} T_{\lambda(y)}$, and for all $x\in P\setminus P_{\max}$,
   $T_{\lambda(x)}=\bigotimes_{x\ll y} S_{\lambda(y)}$.
 \end{definition}
-\aain{This suggests that the sources of $\min(P)$ and the targets of $\max(P)$  are empty. They should be arbitrary. }
-\aain{May be write $S_x$ instead of $S_{\lambda(x)}$ ?}
+\aain{This suggests that the sources of $\min(P)$ and the targets of $\max(P)$  are empty. They should be arbitrary. UF OK now?}
+% \aain{Maybe write $S_x$ instead of $S_{\lambda(x)}$ ?}
 
 \ufin{The above requires (event-ordered) parallel product of ipomsets
   and also ordered parallel product of an ordered set of ipomsets.  Both are easy.}
@@ -86,8 +86,9 @@ A pomset $P$ on an alphabet $\Sigma$ is \emph{series-parallel} (\emph{sp}) if
 \item $P=\emptyset$ or $P=a$ for $a\in \Sigma$, or
 \item $P=Q\otimes R$ or $P=Q*R$ for sp-pomsets $Q$ and $R$.
 \end{itemize}
-Every non-empty sp-pomset $P$ is \aasb{uniquely}{I believe this is not true because of the associativity of the two products} represented by a term $t(P)$ 
-of series and parallel products of singleton pomsets.\ufsb{}{citation needed}
+Every non-empty sp-pomset $P$ is uniquely represented by a term $t(P)$ 
+of series and parallel products of singleton pomsets
+(up to associativity of $*$ and $\otimes$ and commutativity of $\otimes$).\ufsb{}{citation needed}
 
 We inductively define a translation from an ST-sp-pomset $P$ to a $\Sigma$-labeled ipomset $\flat(P)$
 (this generalizes the translation from coherent ST-words to ipomsets
@@ -111,9 +112,9 @@ from~\cite{conf/ramics/AmraneBCFZ24, DBLP:journals/corr/abs-2505-10461}):
 
 Next we inductively define an inverse translation,
 from a $\Sigma$-labeled gp-ipomset $P$ to an ST-sp-pomset $\ST(P)$:
-\aain{Interfaces are missing in the base case ?}
 \begin{itemize}
-\item $\ST(\emptyset)=\emptyset$; $\ST(a)=a$ for $a\in \Sigma$;
+\item $\ST(\emptyset)=\emptyset$; 
+\item $\ST(a)=a$, $\ST(\ibullet a)=\ibullet a$, $\ST(a\ibullet)=a\ibullet$, $\ST(\ibullet a\ibullet)=\ibullet a\ibullet$ for $a\in \Sigma$;
 \item $\ST(P\otimes Q)=\ST(P)\otimes \ST(Q)$;
 \item $\ST(P\glue Q)=\phi_1(\ST(P))*\phi_2(\ST(Q))$.
 \end{itemize}
@@ -149,8 +150,19 @@ from a $\Sigma$-labeled gp-ipomset $P$ to an ST-sp-pomset $\ST(P)$:
 
 This generalizes both the branching automata of~\cite{DBLP:journals/tcs/LodayaW00}
 and the ST-automata of~\cite{conf/ramics/AmraneBCFZ24, DBLP:journals/corr/abs-2505-10461}.
-\aain{This does not generalize general branching automata but only fork acyclic ones : those do not containing nested forks (and accepting bounded-width sp pomsets) In particular, in the second item above $q_i's$ must be different from $q$, otherwise  $\ev(q)=\bigotimes_{i=1}^n \ev(q_i)$ does not hold.}
 
+\aain{This does not generalize general branching automata but only fork-acyclic ones:
+  those not containing nested forks (and accepting bounded-width sp pomsets).
+  In particular, in the second item above $q_i's$ must be different from $q$, otherwise  $\ev(q)=\bigotimes_{i=1}^n \ev(q_i)$ does not hold.}
+
+\ufin{\dots\ except when $\ev(q)=\emptyset$, then we may have $q_i=q$.
+  So, if we map branching automata to branching ST-automata with $\ev(q)=\emptyset$ for every $q$ (which is natural),
+  then we \emph{do} generalize those.
+  
+  That being said, there is some thinking to be done about the lack of fork-cyclicity.
+  But we could always do $q\tto{\starter{2\ev(q)}{\ev(q)}} q'$ (excuse my abuse of notation)
+  and then a fork back to $q\otimes q$, no?}
+  
 \ufin{This begs for a generalization of ``automata on graph alphabets''~\cite{DBLP:journals/corr/abs-2602-10036}
   to ``branching automata on monoidal graph alphabets''.}
 
@@ -179,8 +191,7 @@ These are, thus, sets of ST-sp-pomsets or, equivalently, sets of gp-ipomsets.
 
 \ufin{Above, we also allow nullary and unary branchings.
   Nullary branchings are useless, and unary branchings are sequential teleportations.
-\aain{Lodaya and Weil required at least two branches} 	
-}
+  (\cite{DBLP:journals/tcs/LodayaW00} require at least two branches.)}
 
 The \emph{operational semantics} of a branching HDA $X=(X, \bot, \top, {\branch}, {\merge})$
 is given by the branching ST-automaton $\ST(X)=(X, \bot, \top, {\to}, {\branch}, {\merge}, \ev)$ with
@@ -203,11 +214,10 @@ below $L_{\textup{nb}}(X)$ denotes the non-branching language of $X$, \ie~ignori
 \end{definition}
 
 \ufin{So here, $L_a^b$ is the language from $a$ to $b$.
-  Is an equivalent definition known for branching/pomset automata?
+  Is an equivalent definition known for branching/pomset automata?}
+
 \aain{I found a similar notation (denoted $L_{p,q}$ or something similar) several times in \cite{DBLP:conf/fsttcs/Bedon21,DBLP:journals/corr/Bedon15} and in the proof of Theorem 4.12 in \cite{DBLP:journals/tcs/LodayaW00}.
-the equations that most closely resemble them are used in Theorem~6 of \cite{DBLP:conf/fsttcs/LodayaW98}.
-	} 
-}
+the equations that most closely resemble them are used in Theorem~6 of \cite{DBLP:conf/fsttcs/LodayaW98}.} 
 
 \ufin{There is another definition of the above, likely equivalent:
   split branchings and mergings into pairs $({\branch}, {\merge})$ of the same cardinality,

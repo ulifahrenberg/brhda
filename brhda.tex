@@ -68,7 +68,7 @@ For elements $x$, $y$ of a pomset $P$ we write $x\ll y$ if $x<y$ and there is no
   $T_{\lambda(x)}=\bigotimes_{x\ll y} S_{\lambda(y)}$.
 \end{definition}
 \aain{This suggests that the sources of $\min(P)$ and the targets of $\max(P)$  are empty. They should be arbitrary. UF OK now?}
-% \aain{Maybe write $S_x$ instead of $S_{\lambda(x)}$ ?}
+\aain{OK now}
 
 \ufin{The above requires (event-ordered) parallel product of ipomsets
   and also ordered parallel product of an ordered set of ipomsets.  Both are easy.}
@@ -114,7 +114,7 @@ Next we inductively define an inverse translation,
 from a $\Sigma$-labeled gp-ipomset $P$ to an ST-sp-pomset $\ST(P)$:
 \begin{itemize}
 \item $\ST(\emptyset)=\emptyset$; 
-\item $\ST(a)=a$, $\ST(\ibullet a)=\ibullet a$, $\ST(a\ibullet)=a\ibullet$, $\ST(\ibullet a\ibullet)=\ibullet a\ibullet$ for $a\in \Sigma$;
+\item $\ST(a)=a$, \aain{$a$ is not an ST-pomset: $a \notin \Sigma^\ST$} $\ST(\ibullet a)=\ibullet a$, $\ST(a\ibullet)=a\ibullet$,  $\ST(\ibullet a\ibullet)=\ibullet a\ibullet$ for $a\in \Sigma$;
 \item $\ST(P\otimes Q)=\ST(P)\otimes \ST(Q)$;
 \item $\ST(P\glue Q)=\phi_1(\ST(P))*\phi_2(\ST(Q))$.
 \end{itemize}
@@ -162,7 +162,11 @@ and the ST-automata of~\cite{conf/ramics/AmraneBCFZ24, DBLP:journals/corr/abs-25
   That being said, there is some thinking to be done about the lack of fork-cyclicity.
   But we could always do $q\tto{\starter{2\ev(q)}{\ev(q)}} q'$ (excuse my abuse of notation)
   and then a fork back to $q\otimes q$, no?}
-  
+ \aain{I think, you are right, we should label the states involved in forks and joins by $\emptyset$. The idea is that each branch of a fork is an HDA with start cell having no event active, and one can join when I terminate the events in each branch.
+ Is that too restrictive ?
+ This will generalise branching automata, you have just to split each sequential transition of a branching autimata into starting and terminating transition in the branching ST-automata.
+ Fork-cyclicity is also possible in this case.
+}
 \ufin{This begs for a generalization of ``automata on graph alphabets''~\cite{DBLP:journals/corr/abs-2602-10036}
   to ``branching automata on monoidal graph alphabets''.}
 

@@ -229,6 +229,48 @@ the equations that most closely resemble them are used in Theorem~6 of \cite{DBL
   Splitting into pairs cannot a priori always be done,
   but any branching HDA can (probably) be turned into one where the pairing is possible.}
 
+\section{Towards Kleene theorem}
+
+\def\ispPos{\mathbf{ispPos}}
+\def\iIPos{\mathbf{iIPos}}
+
+\begin{definition}
+	The class of \emph{rational gp-languages} is the smallest  subclass of down-closed languages $L\subseteq \ispPos$ that contains all singletons $\{a\}$, $\{\ibullet a\}$, $\{a \ibullet\}$, $\{\ibullet a\ibullet\}$ for $a\in \Sigma$ and is closed with respect to $+$, $*$, $(-)^*$ and $\otimes$.
+\end{definition}
+
+\begin{definition}	
+	A gp-language is regular if it is a finite approximation of a language of a finite BHDA.
+\end{definition}
+
+\begin{definition}
+	The class of \emph{rational interval languages} is the smallest  subclass of down-closed languages $L\subseteq \iIPos$ that contains all singletons $\{a\}$, $\{\ibullet a\}$, $\{a \ibullet\}$, $\{\ibullet a\ibullet\}$ for $a\in \Sigma$ and is closed with respect to $+$, $*$, $(-)^*$ and $\otimes$.
+\end{definition}
+
+Let $L_i(X)_x^y$ denote the $i$-th approximation of $L(X)_x^y$.
+
+\begin{lemma}
+	The following classes are equal:
+	\begin{itemize}
+	\item
+		The class gp-languages generated from discrete iconclists by $+$, $*$, $(-)^*$.
+	\item	
+		The class of regular interval languages.
+	\item
+		The class of rational interval languages.
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	This is shown in \cite{FJSZ_Kleene} + the observation that interval iposets are closed with respect $+$, $*$, $(-)^*$. (So we do not get and gp-posets that are not interval).
+\end{proof}
+
+\begin{proposition}
+	Every regular gp-language is rational.
+\end{proposition}
+\begin{proof}
+	Let $X$ be a BHDA. By  $L_0(X)_x^y$ is a regular interval language and by the Lemma above, a rational gp-language.
+TBC
+\end{proof}
+
 \section{Stuff}
 
 \ufin{Also introduce ST-pomset automata and pomset HDAs? following~\cite{DBLP:journals/jlp/KappeBLSZ19}.

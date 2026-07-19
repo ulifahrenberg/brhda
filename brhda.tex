@@ -249,6 +249,7 @@ the equations that most closely resemble them are used in Theorem~6 of \cite{DBL
 Let $L_i(X)_x^y$ denote the $i$-th approximation of $L(X)_x^y$.
 
 \begin{lemma}
+\label{l:hdalang-is-gp}
 	The following classes are equal:
 	\begin{itemize}
 	\item
@@ -260,16 +261,55 @@ Let $L_i(X)_x^y$ denote the $i$-th approximation of $L(X)_x^y$.
 	\end{itemize}
 \end{lemma}
 \begin{proof}
-	This is shown in \cite{FJSZ_Kleene} + the observation that interval iposets are closed with respect $+$, $*$, $(-)^*$. (So we do not get and gp-posets that are not interval).
+	This is shown in \cite{FJSZ_Kleene} + the observation that interval iposets are closed with respect $+$, $*$, $(-)^*$. (So we do not get any gp-posets that are not interval).
 \end{proof}
 
+\begin{lemma}
+\label{l:pattern}
+	Let $Q_n$  be an FSA over alphabet $\Lambda=\{a_i^j\}_{i=\bot,1,\dotsc,n}^{j=1,\dotsc,n,\top}$ with states $\bot,1,\dotsc,n,\top$ and transitions $i\xrightarrow{a_i^j} j$ for $i\in \{\bot,1,\dotsc,n\}$, $i\in \{1,\dotsc,n,\top\}$. Let $e_n$ be a rational expression that describes the language of $Q_n$. Then for every BHDA $X$ having $n$ branchings-mergings:
+	\[
+		L_{k+1}(X)_x^y=e_n(v_i^j),
+	\]
+	where
+	\begin{itemize}
+	\item $v_\bot^i= L_0(X)_x^{s_i}$,
+	\item $v_i^j=\bigotimes_\ell L_k(X)_{s_i,\ell}^{t_i,\ell}*L_0(X)_{t_i}^{s_j}$,
+	\item $v_i^\top = \bigotimes_\ell L_k(X)_{s_i,\ell}^{t_i,\ell}*L_0(X)_{t_i}^{y}$,
+	\item $v_\bot^\top=L_k(X)_x^y$.
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	Routine.
+\end{proof}
+
+\begin{lemma}
+	For every BHDA $X$, $x,y\in X$ and $k<\infty$, $L_k(X)_x^y$ is gp-rational.
+\end{lemma}
+\begin{proof}
+	This combines Lemmas \ref{l:hdalang-is-gp} and \ref{l:pattern}.
+\end{proof}
+
+
 \begin{proposition}
-	Every regular gp-language is rational.
+	Every rational gp-language is regular.
 \end{proposition}
 \begin{proof}
-	Let $X$ be a BHDA. By  $L_0(X)_x^y$ is a regular interval language and by the Lemma above, a rational gp-language.
-TBC
+	This is the hard part of Kleene theorem which becomes easier for BHDA since we can emulate $\epsilon$-transitions by trivial branchings-mergings.
+	
+	Singleton languages are regular (easy), $+$ is obtained by the disjoint union of BHDA (easy construction). We need to show that gp-regular languages are closed with respect to concatenation, Kleene star and concurrent composition: below.
 \end{proof}
+
+\begin{definition}
+	Let $X$, $Y$ be BHDA. The parallel composition $X{{}_x^{x'}\parallel_y^{y'}} Y$ is defined as follows.
+	\begin{itemize}
+	\item As an HDA, $X\parallel Y = X\sqcup Y \sqcup \square^{\ev(x)\otimes\ev(y)} \sqcup \square^{\ev(x')\otimes\ev(y')}$. New top cells are denoted by $s$ and $t$, respectively.
+	\item BMs are branchings-mergings of $X$, $Y$, and additionally $(s\branch x \rightrightarrows y\merge t)$
+	\end{itemize}
+\end{definition} 
+\begin{lemma}
+	$L_k(X{}_x^{x'}\parallel_y^{y'} Y)_s^t=L_{k-1}(X)_x^{x'}\otimes L_{k-1}(X)_y^{y'}$.
+\end{lemma}
+
 
 \section{Stuff}
 
